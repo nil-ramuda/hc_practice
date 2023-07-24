@@ -1,3 +1,8 @@
+/* * {
+	outline: 1px solid magenta;
+} */
+
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -39,6 +44,7 @@ main {
 .main_visual {
     /* border: 1px solid orange; */
     width: 100vw;
+    width: 100%;
     margin-bottom: 80px;
 }
 
@@ -156,6 +162,7 @@ footer p {
     }
 
     footer {
+        width: 960px;
         border-bottom: 5px solid black;
 
     }
