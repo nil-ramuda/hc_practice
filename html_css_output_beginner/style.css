@@ -50,6 +50,7 @@ main {
 main h1 {
     text-align: center;
     text-decoration: underline;
+    text-underline-offset: 15px;
     margin-bottom: 50px;
 }
 
