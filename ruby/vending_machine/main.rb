@@ -39,7 +39,6 @@ class FunctionExtension < VendingMachine
     @name = name
     @price = price
     @stock = stock
-    puts "#{@name}, #{@price}, #{@stock}"
   end
 
   def add_juice_name(*names)
