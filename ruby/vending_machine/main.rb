@@ -10,7 +10,6 @@ class Suica
   end
 
   def balance
-    puts "残高は#{@@deposit}円です"
     @@deposit
   end
 
@@ -24,13 +23,9 @@ class VendingMachine < Suica
   @@sales = 0
   def purchase_processing(purchaseNum1)
     if @@deposit > @@juice_price * purchaseNum1 && @@juice_stock >= purchaseNum1
-      puts "ペプシを#{purchaseNum1}本購入します"
       @@juice_stock -= purchaseNum1
-      puts "残りの在庫数：#{@@juice_stock}"
       @@sales += @@juice_price * purchaseNum1
-      puts "現在の売上高：#{@@sales}"
       @@deposit -= @@juice_price * purchaseNum1
-      puts "Suica残高：#{@@deposit}"
     else @@deposit < @@juice_price * purchaseNum1 || @@juice_stock < purchaseNum1
       raise "Suicaの残高が足りないか、ペプシの在庫が足りません"
     end
@@ -79,25 +74,17 @@ class FunctionExtension < VendingMachine
     case name
     when "モンスター"
       if @@deposit > 230 * purchaseNum2 && @juice_stocks[0] >= purchaseNum2
-        puts "モンスターを#{purchaseNum2}本購入します"
         @juice_stocks[0] -= purchaseNum2
-        puts "残りの在庫数：#{@juice_stocks[0]}"
         @@sales += 230 * purchaseNum2
-        puts "現在の売上高：#{@@sales}"
         @@deposit -= 230 * purchaseNum2
-        puts "Suica残高：#{@@deposit}"
       else @@deposit < 230 * purchaseNum2 || @juice_stocks[0] < purchaseNum2
         raise "Suicaの残高が足りないか、モンスターの在庫が足りません"
       end
     when "いろはす"
       if @@deposit > 120 * purchaseNum2 && @juice_stocks[1] >= purchaseNum2
-        puts "いろはすを#{purchaseNum2}本購入します"
         @juice_stocks[1] -= purchaseNum2
-        puts "残りの在庫数：#{@juice_stocks[1]}"
         @@sales += 120 * purchaseNum2
-        puts "現在の売上高：#{@@sales}"
         @@deposit -= 120 * purchaseNum2
-        puts "Suica残高：#{@@deposit}"
       else @@deposit < 120 * purchaseNum2 || @juice_stocks[1] < purchaseNum2
         raise "Suicaの残高が足りないか、いろはすの在庫が足りません"
       end
