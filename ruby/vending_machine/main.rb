@@ -1,105 +1,114 @@
+class Juice
+  # 名前と値段をインスタンス変数に入れる
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+  def name
+    @name
+  end
+  def price
+    @price
+  end
+end
+
+
 class Suica
-  @@deposit = 500
+  # 預り金を定義する
+  DEPOSIT = 500
+  def initialize
+    @balance = DEPOSIT
+  end
+  # チャージ
   def charge(money)
-    @money = money
     if money < 100
       raise "100円未満はチャージできません"
     else
-      @@deposit = 500 + @money
+      @balance = DEPOSIT + money
+      puts "残高は#{@balance}円です"
     end
   end
 
+  private
+  # 残高取得
   def balance
-    @@deposit
+    # puts "残高は#{@balance}円です"
+    @balance
   end
 
-end
-
-class VendingMachine < Suica
-  @@juice_name = "ペプシ"
-  @@juice_price = 150
-  @@juice_stock = 5
-
-  @@sales = 0
-  def purchase_processing(purchaseNum1)
-    if @@deposit > @@juice_price * purchaseNum1 && @@juice_stock >= purchaseNum1
-      @@juice_stock -= purchaseNum1
-      @@sales += @@juice_price * purchaseNum1
-      @@deposit -= @@juice_price * purchaseNum1
-    else @@deposit < @@juice_price * purchaseNum1 || @@juice_stock < purchaseNum1
-      raise "Suicaの残高が足りないか、ペプシの在庫が足りません"
-    end
-  end
-
+  
 end
 
 
-class FunctionExtension < VendingMachine
-  def getJuice(name, price, stock)
-    @name = name
-    @price = price
-    @stock = stock
+class VendingMachine
+  def initialize(juice, stock_num)
+    # 売上金を定義する
+    @sales = 0
+    # 在庫を定義する
+    @stocks = { juice.name => stock_num }
   end
 
-  def add_juice_name(*names)
-    @juice_names = [@@juice_name, names].flatten
-  end
+  # ジュース追加
+  def add_item=(new_juice)
+    # @stocks = {juice.name => num}
+    # @stocks[juice.name] = num
+    # puts "#{juice.name}の在庫は#{@stocks[juice.name]}本です"
+    @stocks[new_juice[0]] = new_juice[1]
 
-  def add_juice_price(*prices)
-    @juice_prices = [@@juice_price, prices].flatten
   end
+  # 在庫補充
+  # def add_stock(juice, a)
+  #   @stocks[juice.name] += a
+  #   puts @stocks[juice.name]
+  # end
 
-  def add_juice_stock(*stocks)
-    @juice_stocks = [@@juice_stock, stocks].flatten
+  def show_stock
+    puts @stocks
   end
-
-  def drink_list
-    @juice_prices.each_with_index do |price, i|
-      if price < @@deposit
-        @purchasable_drink = @juice_names[i]
-      else
-        @unpurchasable_drink = @juice_names[i]
-      end
+  # 支払処理
+  # どのジュースのボタンが押されたか感知する
+  # Suicaの支払い処理
+  def purchase(card, juice)
+    if card.balance >= juice.price && @stocks[juice.name] > 0
+      # puts "#{juice.name}は買えます"
+      @sales += juice.price
+      # puts "売上金が#{@sales}円になりました"
+      @stocks[juice.name] -= 1
+      # puts "#{juice.name}は残り#{@stocks[juice.name]}本です"
+    else card.balance < juice.price || @stocks[juice.name] == 0
+      puts "#{juice.name}は買えません"
     end
   end
 
-  def stock_replenishing(*stockNum)
-    @juice_stocks.each_with_index do |st, i|
-      @juice_stocks[i] += stockNum[i]
+
+  def purchasable_juice(card, juice)
+    if card.balance >= juice.price && @stocks[juice.name]
+      puts "#{juice.name}は買えます"
     end
   end
 
-  def purchase_processing(name, purchaseNum2)
-    case name
-    when "モンスター"
-      if @@deposit > 230 * purchaseNum2 && @juice_stocks[0] >= purchaseNum2
-        @juice_stocks[0] -= purchaseNum2
-        @@sales += 230 * purchaseNum2
-        @@deposit -= 230 * purchaseNum2
-      else @@deposit < 230 * purchaseNum2 || @juice_stocks[0] < purchaseNum2
-        raise "Suicaの残高が足りないか、モンスターの在庫が足りません"
-      end
-    when "いろはす"
-      if @@deposit > 120 * purchaseNum2 && @juice_stocks[1] >= purchaseNum2
-        @juice_stocks[1] -= purchaseNum2
-        @@sales += 120 * purchaseNum2
-        @@deposit -= 120 * purchaseNum2
-      else @@deposit < 120 * purchaseNum2 || @juice_stocks[1] < purchaseNum2
-        raise "Suicaの残高が足りないか、いろはすの在庫が足りません"
-      end
-   end
+  private
+  def sales
+    # p @sales
+    puts "売上金は#{@sales}円です"
   end
 end
 
-Suica.new.charge(600)
-Suica.new.balance
-VendingMachine.new.purchase_processing(4)
-
-fe = FunctionExtension.new
-fe.add_juice_name("モンスター", "いろはす")
-fe.add_juice_price(230, 150)
-fe.add_juice_stock(3, 2)
-fe.drink_list
-fe.stock_replenishing(1, 2, 3)
-fe.purchase_processing("いろはす", 2)
-
+pepsi = Juice.new("ペプシ", 150)
+suica = Suica.new
+suica.charge(100)
+# suica.balance
+vendingmachine = VendingMachine.new(pepsi, 5)
+# vendingmachine.stock(pepsi, 5)
+vendingmachine.purchase(suica, pepsi)
+# vendingmachine.add_stock(pepsi, 2)
+# vendingmachine.sales
+monster = Juice.new("モンスター", 230)
+irohasu = Juice.new("いろはす", 120)
+# vendingmachine.stock(monster, 5)
+vendingmachine.add_item = [monster.name, 5]
+# vendingmachine.add_item(irohasu, 5)
+vendingmachine.show_stock
+# vendingmachine.add_stock(monster, 3)
+vendingmachine.purchasable_juice(suica, pepsi)
+# vendingmachine.add_stock(monster, 5)
