@@ -3,14 +3,9 @@ class Juice
     @name = name
     @price = price
   end
-  def name
-    @name
-  end
-  def price
-    @price
-  end
-end
 
+  attr_reader :name, :price
+end
 
 class Suica
   DEPOSIT = 500
@@ -20,23 +15,14 @@ class Suica
   end
 
   def charge(money)
-    if money < 100
-      raise "100円未満はチャージできません"
-    else
-      @balance = DEPOSIT + money
-    end
+    raise '100円未満はチャージできません' if money < 100
+
+    @balance = DEPOSIT + money
   end
 
   # private
-  def balance
-    @balance
-  end
-
-  def balance=(new_balance)
-    @balance = new_balance
-  end
+  attr_accessor :balance
 end
-
 
 class VendingMachine
   def initialize(juice, stock_num)
@@ -47,7 +33,6 @@ class VendingMachine
 
   def add_item=(new_juice)
     @stocks[new_juice[0]] = new_juice[1]
-
   end
 
   def add_stock(juice, a)
@@ -63,16 +48,16 @@ class VendingMachine
       card.balance -= juice.price * num
       @sales += juice.price
       @stocks[juice.name] -= num
-    else card.balance < juice.price || @stocks[juice.name] < num
+    else
+      card.balance < juice.price || @stocks[juice.name] < num
       raise "Suicaの残高が足りないか、在庫の数が足りないため#{juice.name}は買えません"
     end
   end
 
-
   def purchasable_juice(card, juice)
-    if card.balance >= juice.price && @stocks[juice.name] > 0
-      @purchasable_juice.push(juice.name)
-    end
+    return unless card.balance >= juice.price && @stocks[juice.name] > 0
+
+    @purchasable_juice.push(juice.name)
   end
 
   def show_purchasable_juice
@@ -80,7 +65,6 @@ class VendingMachine
   end
 
   private
-  def sales
-    @sales
-  end
+
+  attr_reader :sales
 end
