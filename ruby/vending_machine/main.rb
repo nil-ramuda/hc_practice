@@ -1,5 +1,4 @@
 class Juice
-  # 名前と値段をインスタンス変数に入れる
   def initialize(name, price)
     @name = name
     @price = price
@@ -85,22 +84,3 @@ class VendingMachine
     @sales
   end
 end
-
-# pepsi = Juice.new("ペプシ", 150)
-# suica = Suica.new
-# suica.charge(100)
-# # suica.balance
-# vendingmachine = VendingMachine.new(pepsi, 5)
-# # vendingmachine.stock(pepsi, 5)
-# vendingmachine.purchase(suica, pepsi)
-# # vendingmachine.add_stock(pepsi, 2)
-# # vendingmachine.sales
-# monster = Juice.new("モンスター", 230)
-# irohasu = Juice.new("いろはす", 120)
-# # vendingmachine.stock(monster, 5)
-# vendingmachine.add_item = [monster.name, 5]
-# # vendingmachine.add_item(irohasu, 5)
-# vendingmachine.show_stock
-# vendingmachine.add_stock(monster, 3)
-# vendingmachine.purchasable_juice(suica, pepsi)
-# # vendingmachine.add_stock(monster, 5)
