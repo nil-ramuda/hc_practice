@@ -1,6 +1,6 @@
 class Suica
   # private
-  attr_accessor :balance
+  attr_reader :balance
 
   DEPOSIT = 500
 
