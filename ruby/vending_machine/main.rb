@@ -42,7 +42,7 @@ vendingmachine.add_item(irohasu, 5)
 suica.purchase(vendingmachine, suica, monster)
 # ジュースの在庫を取得
 puts "#{monster.name}の在庫は#{vendingmachine.stocks[monster]}本です"
-# 自動販売機の売上金に売れたペプシの金額分を追加
+# 自動販売機の売上金に売れたモンスターの金額分を追加
 vendingmachine.purchased_juice = monster
 # 売上金取得
 puts "自動販売機の売上金は#{vendingmachine.sales}円です"
@@ -63,11 +63,18 @@ puts "#{monster.name}の在庫は#{vendingmachine.stocks[monster]}本です"
 
 # Suicaに1000円チャージ
 suica.charge(1000)
-# ペプシをあるだけ購入
+# ペプシをあるだけすべて(4本)購入
 suica.purchase(vendingmachine, suica, pepsi)
+vendingmachine.purchased_juice = pepsi
 suica.purchase(vendingmachine, suica, pepsi)
+vendingmachine.purchased_juice = pepsi
 suica.purchase(vendingmachine, suica, pepsi)
+vendingmachine.purchased_juice = pepsi
 suica.purchase(vendingmachine, suica, pepsi)
+vendingmachine.purchased_juice = pepsi
+# 売上金取得
+puts "自動販売機の売上金は#{vendingmachine.sales}円です"
+
 # ジュースの在庫を取得
 puts "#{pepsi.name}の在庫は#{vendingmachine.stocks[pepsi]}本です"
 # 在庫がないジュースを購入しようとするとエラー発生
