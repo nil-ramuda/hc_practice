@@ -5,7 +5,7 @@ class Player
     generate(name)
   end
 
-  def generate(name)
+  def generate(_name)
     raise '抽象メソッドが呼ばれました'
   end
 end

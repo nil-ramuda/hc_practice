@@ -5,7 +5,7 @@ class Pokemon
     generate(name, type1, type2, hp, mp)
   end
 
-  def generate(name, type1, type2, hp, mp)
+  def generate(_name, _type1, _type2, _hp, _mp)
     raise '抽象メソッドが呼ばれました'
   end
 

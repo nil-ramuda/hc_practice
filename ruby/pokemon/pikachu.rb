@@ -1,5 +1,4 @@
 class Pikachu < Pokemon
-
   def generate(name, type1, type2, hp, mp)
     @name = name
     @type1 = type1
