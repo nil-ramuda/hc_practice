@@ -42,8 +42,8 @@
   updated_at { label: "datatime, not null" }
 [direct_messages]
   *id { label: "bigint, not null" }
-  send_by_id { label: "bigint, not null, FK(users)" }
-  sent_to_id { label: "bigint, not null, FK(users)" }
+  sender_id { label: "bigint, not null, FK(users)" }
+  receiver_id { label: "bigint, not null, FK(users)" }
   text { label: "varchar, not null" }
   created_at { label: "datatime, not null" }
   updated_at { label: "datatime, not null" }
