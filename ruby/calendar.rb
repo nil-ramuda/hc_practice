@@ -29,3 +29,4 @@ other_week = days.slice((7 - cwday + 1)..-1)
 other_week.each_slice(7) do |a|
   puts a.map { |b| b.to_s.rjust(2, ' ') }.join(' ')
 end
+
