@@ -5,6 +5,7 @@ def week
   puts '月 火 水 木 金 土 日'
 end
 
+
 year = [*1..12]
 
 today = Date.today
